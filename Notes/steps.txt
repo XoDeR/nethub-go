@@ -4,6 +4,7 @@ go mod init github.com/XoDeR/nethub-go
 
 + create main.go
 
+
 2. Execute 
 
 go run ./cmd/api/main.go
@@ -19,4 +20,15 @@ go build -o myapp main.go
 run binary:
 
 ./myapp
+
+
+3. Install a dependency go.uber.org/zap
+
+go get -u go.uber.org/zap
+
+-u means latest version
+
+specific version:
+
+go get go.uber.org/zap@v1.27.0
 

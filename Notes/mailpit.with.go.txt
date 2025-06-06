@@ -1,0 +1,45 @@
+1. Install Gomail
+First, install the Gomail package:
+
+sh
+go get gopkg.in/mail.v2
+2. Start Mailpit
+Run Mailpit locally:
+
+sh
+mailpit --smtp 1025 --http 8025
+SMTP Server: localhost:1025
+
+Web Interface: http://localhost:8025
+
+3. Configure Gomail to Use Mailpit
+Modify your Go code to send emails via Mailpit:
+
+go
+package main
+
+import (
+    "fmt"
+    "gopkg.in/mail.v2"
+)
+
+func main() {
+    // Create a new email message
+    message := mail.NewMessage()
+    message.SetHeader("From", "test@example.com")
+    message.SetHeader("To", "recipient@example.com")
+    message.SetHeader("Subject", "Test Email")
+    message.SetBody("text/plain", "Hello, this is a test email!")
+
+    // Configure SMTP dialer for Mailpit
+    dialer := mail.NewDialer("localhost", 1025, "", "") // No authentication needed
+
+    // Send the email
+    if err := dialer.DialAndSend(message); err != nil {
+        fmt.Println("Error:", err)
+    } else {
+        fmt.Println("Email sent successfully!")
+    }
+}
+4. View Emails in Mailpit
+Open http://localhost:8025 in your browser to see the captured emails.
