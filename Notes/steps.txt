@@ -1,0 +1,22 @@
+1. Create new project
+
+go mod init github.com/XoDeR/nethub-go
+
++ create main.go
+
+2. Execute 
+
+go run ./cmd/api/main.go
+
+or just
+
+go run ./cmd/api
+
+build binary:
+
+go build -o myapp main.go
+
+run binary:
+
+./myapp
+
