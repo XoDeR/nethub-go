@@ -33,7 +33,11 @@ specific version:
 go get go.uber.org/zap@v1.27.0
 
 
-4, For postgres db a driver should be installed:
+4. For postgres db a driver should be installed:
 
 go get github.com/lib/pq@v1.10.9
+
+5. Router (chi)
+
+go get github.com/go-chi/chi/v5@v5.1.0
 

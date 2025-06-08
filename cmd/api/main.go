@@ -57,5 +57,10 @@ func main() {
 		store:  store,
 	}
 
+	// test logger, TODO: remove when not needed
 	logger.Info(app)
+
+	mux := app.mount()
+
+	logger.Fatal(app.run(mux))
 }
