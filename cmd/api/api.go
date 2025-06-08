@@ -78,6 +78,11 @@ func (app *application) mount() http.Handler {
 
 	r.Route("/v1", func(r chi.Router) {
 		r.Get("/test", app.testHandler)
+
+		// Public routes
+		r.Post("/register", app.registerUserHandler)
+		r.Post("/login", app.loginUserHandler)
+		r.Post("/logout", app.logoutUserHandler)
 	})
 
 	return r
