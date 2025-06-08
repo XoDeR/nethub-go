@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"time"
 
+	"github.com/XoDeR/nethub-go/internal/auth"
 	"github.com/XoDeR/nethub-go/internal/db"
 	"github.com/XoDeR/nethub-go/internal/env"
 	"github.com/XoDeR/nethub-go/internal/store"
@@ -27,6 +29,18 @@ func main() {
 			maxIdleTime:  env.GetString("DB_MAX_IDLE_TIME", "15m"),
 		},
 		env: env.GetString("ENV", "development"),
+		auth: authConfig{
+			basic: basicConfig{
+				user: env.GetString("AUTH_BASIC_USER", "admin"),
+				pass: env.GetString("AUTH_BASIC_PASS", "admin"),
+			},
+			token: tokenConfig{
+				secret: env.GetString("AUTH_TOKEN_SECRET", "example"),
+				exp:    time.Hour * 24 * 3, // 3 days
+				iss:    "nethub",
+				aud:    "nethubapi",
+			},
+		},
 	}
 
 	// enable logger
@@ -50,12 +64,20 @@ func main() {
 	defer db.Close()
 	logger.Info("database connected")
 
+	// Authenticator
+	jwtAuthenticator := auth.NewJWTAuthenticator(
+		cfg.auth.token.secret,
+		cfg.auth.token.iss,
+		cfg.auth.token.aud,
+	)
+
 	store := store.NewStorage(db)
 
 	app := &application{
-		config: cfg,
-		logger: logger,
-		store:  store,
+		config:        cfg,
+		logger:        logger,
+		store:         store,
+		authenticator: jwtAuthenticator,
 	}
 
 	// test logger, TODO: remove when not needed

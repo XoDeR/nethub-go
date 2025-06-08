@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/XoDeR/nethub-go/internal/auth"
 	"github.com/XoDeR/nethub-go/internal/env"
 	"github.com/XoDeR/nethub-go/internal/store"
 	"github.com/go-chi/chi/v5"
@@ -24,18 +25,37 @@ type dbConfig struct {
 	maxIdleTime  string
 }
 
+type basicConfig struct {
+	user string
+	pass string
+}
+
+type tokenConfig struct {
+	secret string
+	exp    time.Duration
+	iss    string
+	aud    string
+}
+
+type authConfig struct {
+	basic basicConfig
+	token tokenConfig
+}
+
 type config struct {
 	addr        string
 	apiURL      string
 	frontendURL string
 	db          dbConfig
 	env         string
+	auth        authConfig
 }
 
 type application struct {
-	config config
-	logger *zap.SugaredLogger
-	store  store.Storage
+	config        config
+	logger        *zap.SugaredLogger
+	store         store.Storage
+	authenticator auth.Authenticator
 }
 
 func (app *application) mount() http.Handler {
