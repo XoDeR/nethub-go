@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/XoDeR/nethub-go/internal/store"
 	"go.uber.org/zap"
 )
 
@@ -21,4 +22,5 @@ type config struct {
 type application struct {
 	config config
 	logger *zap.SugaredLogger
+	store  store.Storage
 }

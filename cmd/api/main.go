@@ -5,6 +5,7 @@ import (
 
 	"github.com/XoDeR/nethub-go/internal/db"
 	"github.com/XoDeR/nethub-go/internal/env"
+	"github.com/XoDeR/nethub-go/internal/store"
 	"go.uber.org/zap"
 )
 
@@ -48,9 +49,12 @@ func main() {
 	defer db.Close()
 	logger.Info("database connected")
 
+	store := store.NewStorage(db)
+
 	app := &application{
 		config: cfg,
 		logger: logger,
+		store:  store,
 	}
 
 	logger.Info(app)
