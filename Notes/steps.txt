@@ -41,3 +41,5 @@ go get github.com/lib/pq@v1.10.9
 
 go get github.com/go-chi/chi/v5@v5.1.0
 
+6. Test route is working: http://localhost:8080/v1/test
+
