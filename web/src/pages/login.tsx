@@ -1,2 +1,8 @@
-const Login: React.FC = () => <h1>Login Page</h1>;
+import { LoginCard } from "@/components/login-card";
+
+const Login: React.FC = () => {
+  return (
+    <LoginCard />
+  )
+}
 export default Login;

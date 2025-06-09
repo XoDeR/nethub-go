@@ -4,6 +4,9 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Feed from "./pages/feed";
 
+// TODO set VITE_API_URL
+export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/v1"
+
 const isAuthenticated = (): boolean => {
   return localStorage.getItem("token") !== null;
 };
