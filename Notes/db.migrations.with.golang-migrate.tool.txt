@@ -1,0 +1,35 @@
+1. Install golang-migrate
+
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+2. mkdir -p cmd/api/migrations
+
+3. Generate a new migration file:
+
+migrate create -ext sql -dir cmd/api/migrations -seq create_users_table
+
+4. Write migration SQL in 
+
+000001_create_users_table.up.sql
+and
+000001_create_users_table.down.sql
+
+5. Apply:
+
+migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path db/migrations up
+
+
+6. Rollback last:
+
+migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path db/migrations down
+
+7. Rollback all:
+
+migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path db/migrations down -all
+
+or
+
+migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path db/migrations down 999
+
+
+DB_ADDR="postgres://postgres@localhost/nethub-go?sslmode=disable"

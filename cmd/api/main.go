@@ -8,6 +8,7 @@ import (
 	"github.com/XoDeR/nethub-go/internal/db"
 	"github.com/XoDeR/nethub-go/internal/env"
 	"github.com/XoDeR/nethub-go/internal/store"
+	"github.com/joho/godotenv"
 	"go.uber.org/zap"
 )
 
@@ -18,6 +19,8 @@ func main() {
 	fmt.Println("NetHub version: " + version)
 
 	// load config from env vars
+	godotenv.Load() // load .env file as env vars
+
 	cfg := config{
 		addr:        env.GetString("ADDR", ":8080"),
 		apiURL:      env.GetString("EXTERNAL_URL", "localhost:8080"),
