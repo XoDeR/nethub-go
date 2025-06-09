@@ -43,6 +43,7 @@ go get github.com/go-chi/chi/v5@v5.1.0
 
 6. Test route is working: http://localhost:8080/v1/test
 
+
 7.1. Auth. Package for JWT
 
 go get github.com/golang-jwt/jwt/v5@v5.2.1
@@ -54,5 +55,15 @@ go get github.com/google/uuid@v1.6.0
 7.3 Validator
 
 go get github.com/go-playground/validator/v10@v10.22.0
+
+
+8. DB
+
+- create migrations
+- seed db
+
+9. continue implementing proper auth
+	backend: login route
+	frontend: test register/login/logout routes
 
 

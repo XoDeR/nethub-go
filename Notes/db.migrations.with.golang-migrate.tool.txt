@@ -41,11 +41,19 @@ migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disabl
 
 or 
 
+[Linuz]
 source .env && migrate -database "$DB_ADDR" -path cmd/api/migrations up
 
 where DB_ADDR="postgres://postgres@localhost/nethub-go?sslmode=disable"
 
 (in .env file)
+
+
+[Windows]
+
+set DB_ADDR=postgres://postgres@localhost/nethub-go?sslmode=disable
+migrate -database "%DB_ADDR%" -path cmd/api/migrations up -limit 7
+
 
 6. Rollback last:
 
