@@ -82,7 +82,6 @@ func (app *application) mount() http.Handler {
 		// Public routes
 		r.Post("/register", app.registerUserHandler)
 		r.Post("/login", app.loginUserHandler)
-		r.Post("/logout", app.logoutUserHandler)
 	})
 
 	return r

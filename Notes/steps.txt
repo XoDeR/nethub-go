@@ -43,3 +43,16 @@ go get github.com/go-chi/chi/v5@v5.1.0
 
 6. Test route is working: http://localhost:8080/v1/test
 
+7.1. Auth. Package for JWT
+
+go get github.com/golang-jwt/jwt/v5@v5.2.1
+
+7.2. Auth. UUID
+
+go get github.com/google/uuid@v1.6.0
+
+7.3 Validator
+
+go get github.com/go-playground/validator/v10@v10.22.0
+
+
