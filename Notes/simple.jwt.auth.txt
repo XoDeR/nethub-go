@@ -1,0 +1,45 @@
+JWT authentication flow
+
+backend:
+
+1. Register
+
+POST /v1/register
+
+- Hash the password before storing it in the database.
+- Create the user and store it.
+- Generate a JWT token (sign with a secret key, including claims like user_id, role, exp)
+- Return the JWT to the frontend in the response
+
+2. Login
+
+POST /v1/login
+
+- Verify credentials (check email & hashed password match).
+- Generate a new JWT for the user.
+- Return the JWT token to the frontend.
+
+3. Auth middleware
+
+For protected routes
+
+- Read JWT from Authorization header.
+- Verify token signature and expiration.
+- Extract user_id and role from claims
+
+frontend:
+
+1. Register
+
+2. Login
+
+save JWT to local storage
+
+include JWT in Authorization header for every protected route
+
+3. Logout
+
+remove jwt from local storage
+
+localStorage.removeItem("jwt");
+
