@@ -4,9 +4,30 @@ go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@lat
 
 2. mkdir -p cmd/api/migrations
 
+mkdir cmd\api\migrations
+
+(Windows)
+
 3. Generate a new migration file:
 
 migrate create -ext sql -dir cmd/api/migrations -seq create_users_table
+
+tables to create:
+
+create_roles
+create_users
+create_posts
+create_comments
+create_followers
+add_indexes
+
+migrate create -ext sql -dir cmd/api/migrations -seq create_roles
+migrate create -ext sql -dir cmd/api/migrations -seq create_users
+migrate create -ext sql -dir cmd/api/migrations -seq create_posts
+migrate create -ext sql -dir cmd/api/migrations -seq create_comments
+migrate create -ext sql -dir cmd/api/migrations -seq create_followers
+migrate create -ext sql -dir cmd/api/migrations -seq add_indexes
+
 
 4. Write migration SQL in 
 
@@ -16,20 +37,27 @@ and
 
 5. Apply:
 
-migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path db/migrations up
+migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path cmd/api/migrations up
 
+or 
+
+source .env && migrate -database "$DB_ADDR" -path cmd/api/migrations up
+
+where DB_ADDR="postgres://postgres@localhost/nethub-go?sslmode=disable"
+
+(in .env file)
 
 6. Rollback last:
 
-migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path db/migrations down
+migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path cmd/api/migrations down
 
 7. Rollback all:
 
-migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path db/migrations down -all
+migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path cmd/api/migrations down -all
 
 or
 
-migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path db/migrations down 999
+migrate -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" -path cmd/api/migrations down 999
 
 
-DB_ADDR="postgres://postgres@localhost/nethub-go?sslmode=disable"
+
