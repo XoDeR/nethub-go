@@ -12,33 +12,37 @@ interface ResponseType {
   token: string; // Adjust based on API response structure
 }
 
-export const useLogin = () => {
+export const useRegister = () => {
   //const queryClient = useQueryClient();
 
   const navigate = useNavigate();
 
-  const mutation = useMutation<ResponseType, Error, RequestType>({
+  const mutation = useMutation<
+    ResponseType,
+    Error,
+    RequestType
+  >({
     mutationFn: async ({ json }) => {
-      const response = await fetch(`${API_URL}/login`, {
+      const response = await fetch(`${API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(json),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to log in");
+        throw new Error("Failed to register");
       }
 
       return await response.json();
     },
     onSuccess: (data) => {
-      localStorage.setItem("token", data.token); // Store token for authentication
-      toast.success("Logged in successfully!");
-      //queryClient.invalidateQueries({ queryKey: ["current"] }); // Refresh session
+      localStorage.setItem("token", data.token);
+      toast.success("Registered");
+      //queryClient.invalidateQueries({ queryKey: ["current"] });
       navigate("/feed");
     },
     onError: () => {
-      toast.error("Login failed. Please check your credentials.");
+      toast.error("Failed to register");
     },
   });
 
