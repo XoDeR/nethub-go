@@ -13,6 +13,10 @@ var (
 )
 
 type Storage struct {
+	Posts interface {
+		GetUserFeed(context.Context, int64, PaginatedFeedQuery) ([]PostWithMetadata, error)
+	}
+
 	Users interface {
 		Create(context.Context, *User) error
 		GetByID(context.Context, int64) (*User, error)
@@ -23,6 +27,7 @@ type Storage struct {
 
 func NewStorage(db *sql.DB) Storage {
 	return Storage{
+		Posts: &PostStore{db},
 		Users: &UserStore{db},
 	}
 }
